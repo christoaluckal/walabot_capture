@@ -20,10 +20,8 @@ except:
 M = images
 
 M = np.array(M)
-print(M.shape)
 for i in range(0, len(M)):
     im = M[i]
-    print(im.shape)
     plt.imshow(M[i], cmap='jet', interpolation='none')
     plt.xlim(0, 10)
     plt.draw()

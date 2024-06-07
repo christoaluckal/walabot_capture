@@ -89,9 +89,9 @@ class WBTROSNode:
         print("Recording continuously")
         while True:
             wb.Trigger()
-            self.images_2d.append(wb.GetRawImageSlice()[0])
-            self.images_3d.append(wb.GetRawImage())
-            self.raw_signals.append(wb.GetSignal(self.antenna_pair))
+            self.images_2d.append([wb.GetRawImageSlice()[0],time.time()])
+            self.images_3d.append([wb.GetRawImage(),time.time()])
+            self.raw_signals.append([wb.GetSignal(self.antenna_pair),time.time()])
             self.rate.sleep()
 
     def durationRecord(self,duration="10s"):
@@ -110,11 +110,12 @@ class WBTROSNode:
         start = time.time()
         while time.time()-start < dur_val:
             wb.Trigger()
-            self.images_2d.append(wb.GetRawImageSlice()[0])
-            self.images_3d.append(wb.GetRawImage())
-            self.raw_signals.append(wb.GetSignal(self.antenna_pair))
-            self.rate.sleep()
-            print(f"Remaining time: {dur_val-(time.time()-start)}s")
+            self.images_2d.append([wb.GetRawImageSlice()[0],time.time()])
+            self.images_3d.append([wb.GetRawImage(),time.time()])
+            self.raw_signals.append([wb.GetSignal(self.antenna_pair),time.time()])
+            # self.rate.sleep()
+
+        print(f"Duration of {dur_val} seconds elapsed. Stopping...")
 
     def initializeWLBT(self,):
         wb.Init()
@@ -198,7 +199,7 @@ class WBTROSNode:
 
 if __name__ == '__main__':
     rospy.init_node("walabot_recording")
-    wbt = WBTROSNode(base_name="test")
+    wbt = WBTROSNode()
     wbt.initializeWLBT()
     wbt.setProfile()
     wbt.setArenaParams()

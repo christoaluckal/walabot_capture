@@ -1,0 +1,3 @@
+<launch>
+<node pkg="walabot_capture" type="test_2.py" name="walabot_capture2" output="screen"/>
+</launch>
