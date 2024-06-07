@@ -193,17 +193,36 @@ class WalabotPanel(tk.LabelFrame):
             self.true.configure(state=state)
             self.false.configure(state=state)
 
+    # def __init__(self, master):
+    #     tk.LabelFrame.__init__(self, master, text='Walabot Configuration')
+    #     self.rMin = self.WalabotParameter(self, 'R     Min', 1, 1000, 10.0)
+    #     self.rMax = self.WalabotParameter(self, 'R     Max', 1, 1000, 100.0)
+    #     self.rRes = self.WalabotParameter(self, 'R     Res', 0.1, 10, 2.0)
+    #     self.tMin = self.WalabotParameter(self, 'Theta Min', -90, 90, -20.0)
+    #     self.tMax = self.WalabotParameter(self, 'Theta Max', -90, 90, 20.0)
+    #     self.tRes = self.WalabotParameter(self, 'Theta Res', 0.1, 10, 10.0)
+    #     self.pMin = self.WalabotParameter(self, 'Phi   Min', -90, 90, -45.0)
+    #     self.pMax = self.WalabotParameter(self, 'Phi   Max', -90, 90, 45.0)
+    #     self.pRes = self.WalabotParameter(self, 'Phi   Res', 0.1, 10, 2.0)
+    #     self.thld = self.WalabotParameter(self, 'Threshold', 0.1, 100, 15.0)
+    #     self.mti = self.WalabotParameterMTI(self)
+    #     self.parameters = (
+    #         self.rMin, self.rMax, self.rRes, self.tMin, self.tMax, self.tRes,
+    #         self.pMin, self.pMax, self.pRes, self.thld, self.mti)
+    #     for param in self.parameters:
+    #         param.pack(anchor=tk.W)
     def __init__(self, master):
         tk.LabelFrame.__init__(self, master, text='Walabot Configuration')
-        self.rMin = self.WalabotParameter(self, 'R     Min', 1, 1000, 10.0)
-        self.rMax = self.WalabotParameter(self, 'R     Max', 1, 1000, 100.0)
-        self.rRes = self.WalabotParameter(self, 'R     Res', 0.1, 10, 2.0)
-        self.tMin = self.WalabotParameter(self, 'Theta Min', -90, 90, -20.0)
-        self.tMax = self.WalabotParameter(self, 'Theta Max', -90, 90, 20.0)
-        self.tRes = self.WalabotParameter(self, 'Theta Res', 0.1, 10, 10.0)
-        self.pMin = self.WalabotParameter(self, 'Phi   Min', -90, 90, -45.0)
-        self.pMax = self.WalabotParameter(self, 'Phi   Max', -90, 90, 45.0)
-        self.pRes = self.WalabotParameter(self, 'Phi   Res', 0.1, 10, 2.0)
+        angle_res = 1
+        self.rMin = self.WalabotParameter(self, 'R     Min', 1, 1000, 480)
+        self.rMax = self.WalabotParameter(self, 'R     Max', 1, 1000, 1000.0)
+        self.rRes = self.WalabotParameter(self, 'R     Res', 0.1, 10, 3)
+        self.tMin = self.WalabotParameter(self, 'Theta Min', -90, 90, -10.0)
+        self.tMax = self.WalabotParameter(self, 'Theta Max', -90, 90, 10.0)
+        self.tRes = self.WalabotParameter(self, 'Theta Res', 0.1, 10, angle_res)
+        self.pMin = self.WalabotParameter(self, 'Phi   Min', -90, 90, -20.0)
+        self.pMax = self.WalabotParameter(self, 'Phi   Max', -90, 90, 20.0)
+        self.pRes = self.WalabotParameter(self, 'Phi   Res', 0.1, 10, angle_res)
         self.thld = self.WalabotParameter(self, 'Threshold', 0.1, 100, 15.0)
         self.mti = self.WalabotParameterMTI(self)
         self.parameters = (
@@ -217,6 +236,7 @@ class WalabotPanel(tk.LabelFrame):
         tParams = (self.tMin.get(), self.tMax.get(), self.tRes.get())
         pParams = (self.pMin.get(), self.pMax.get(), self.pRes.get())
         thldParam, mtiParam = self.thld.get(), self.mti.get()
+        print("MTI: ", mtiParam)
         return rParams, tParams, pParams, thldParam, mtiParam
 
     def setParams(self, rParams, thetaParams, phiParams, threshold):
