@@ -11,6 +11,7 @@
 
 import WalabotAPI as wb
 import matplotlib
+import matplotlib.pyplot as plt
 import time
 import sys
 import os
@@ -82,22 +83,27 @@ if __name__ == '__main__':
         stat, prog = wb.GetStatus()
 
     dim1, dim2 = wb.GetRawImageSlice()[1:3]
-
+    counter = 1
     try:
         while (t_end-time.time() > 0):
             # One iteration takes around 0.1 seconds
             wb.Trigger()
             # TODO: Signals cannot be used in Tracker mode. Which signal is best for us?
-            print(len(wb.GetAntennaPairs()))
             # raw_signals = []
             # for antenna_pair in wb.GetAntennaPairs():
             # print(antenna_pair)
             # raw_signals.append(wb.GetSignal(antenna_pair))
             wb_rawimage2D = wb.GetRawImageSlice()[0]
+            # plt.imshow(wb_rawimage2D, cmap='jet', interpolation='none')
+            # plt.draw()
+            # plt.pause(0.05)
+            plt.imsave(f"images/im_{counter}")
+            counter += 1
             sample_dict = dict(wb_rawimage2D=wb.GetRawImageSlice()[
                                0], timestamp=time.time_ns())
             # dataset = dataset.append(sample_dict, ignore_index=True)
-            time.sleep(20)
+            # time.sleep(20)
+            # time.sleep(0.1)
     except KeyboardInterrupt:
         print('interrupted!')
 
